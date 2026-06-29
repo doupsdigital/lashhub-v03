@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import {
   Calendar,
-  Clock,
   Sparkles,
   ChevronDown,
   ChevronUp,
@@ -11,7 +10,6 @@ import {
   CheckCircle2,
   Bell,
   BookOpen,
-  Smartphone,
   Check,
   XCircle,
 } from 'lucide-react';

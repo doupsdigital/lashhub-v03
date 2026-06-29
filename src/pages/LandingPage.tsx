@@ -4,8 +4,6 @@ import {
   Calendar,
   Clock,
   Sparkles,
-  ChevronDown,
-  ChevronUp,
   ArrowRight,
   ShieldCheck,
   CheckCircle2,
