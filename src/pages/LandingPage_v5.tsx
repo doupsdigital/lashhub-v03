@@ -1,6 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import screen1 from '../assets/screen1.png';
+import screen2 from '../assets/screen2.png';
+import screen3 from '../assets/screen3.png';
+import screen4 from '../assets/screen4.png';
+
+const SCREENS = [screen1, screen2, screen3, screen4];
+const SCREEN_LABELS = ['Meu Estúdio', 'Agendamentos', 'Agenda do Dia', 'Visão Geral'];
 import {
   ArrowRight, Check, Bell, Calendar, BookOpen,
   TrendingUp, Clock, ShieldCheck, Sparkles,
@@ -82,11 +89,22 @@ export default function LandingPage_v5() {
   const navigate = useNavigate();
   const { scrollY, scrollYProgress } = useScroll();
   const [scrolled, setScrolled] = useState(false);
+  const [activeScreen, setActiveScreen] = useState(0);
+  const [direction, setDirection] = useState(1);
 
   // Header darkens on scroll
   useEffect(() => {
     return scrollY.on('change', (v) => setScrolled(v > 80));
   }, [scrollY]);
+
+  // Auto-advance carousel
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setDirection(1);
+      setActiveScreen(prev => (prev + 1) % SCREENS.length);
+    }, 3200);
+    return () => clearInterval(timer);
+  }, []);
 
   // Parallax for ambient orbs
   const orb1Y = useTransform(scrollYProgress, [0, 1], ['0%', '-40%']);
@@ -223,51 +241,84 @@ export default function LandingPage_v5() {
           ))}
         </motion.div>
 
-        {/* Floating UI mockup */}
+        {/* Phone carousel */}
         <motion.div
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.6, duration: 0.9, ease: EASE }}
-          style={{ width: '100%', maxWidth: 820 }}
+          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24 }}
         >
+          {/* Phone frame */}
           <motion.div
-            animate={{ y: [0, -12, 0] }}
+            animate={{ y: [0, -10, 0] }}
             transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-            style={{ background: P.card, border: `1px solid ${P.border}`, borderRadius: 20, padding: 16, boxShadow: `0 40px 80px rgba(0,0,0,0.6)` }}
+            style={{
+              width: 260,
+              height: 520,
+              borderRadius: 40,
+              background: '#0e0e16',
+              border: '2px solid rgba(233,30,140,0.35)',
+              boxShadow: `0 0 0 6px rgba(233,30,140,0.07), 0 40px 80px rgba(0,0,0,0.7), 0 0 60px rgba(233,30,140,0.12)`,
+              position: 'relative',
+              overflow: 'hidden',
+            }}
           >
-            <div style={{ background: P.bg, borderRadius: 14, padding: 16 }}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div style={{ background: P.card, border: `1px solid rgba(233,30,140,0.2)`, borderRadius: 12, padding: 16 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 12, marginBottom: 12, borderBottom: `1px solid ${P.border}` }}>
-                    <span style={{ fontSize: 10, fontWeight: 700, color: P.accent, textTransform: 'uppercase', letterSpacing: 0.5 }}>App da Cliente</span>
-                    <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#10b981', display: 'inline-block' }} />
-                  </div>
-                  <div style={{ background: P.accentDim, border: `1px solid rgba(233,30,140,0.15)`, borderRadius: 8, padding: '8px 12px', marginBottom: 8, fontSize: 11, fontWeight: 600, color: '#ff8cc8' }}>✦ Volume Russo — R$ 180</div>
-                  <div style={{ background: P.bg, borderRadius: 8, padding: '7px 12px', marginBottom: 6, fontSize: 10, color: P.muted }}>📅 Segunda, 14 Jul — 10:00h</div>
-                  <div style={{ background: P.bg, borderRadius: 8, padding: '7px 12px', fontSize: 10, color: P.muted }}>📅 Segunda, 14 Jul — 14:00h</div>
-                  <div style={{ marginTop: 12, paddingTop: 10, borderTop: `1px solid ${P.border}`, fontSize: 9, color: P.faint, textAlign: 'center' }}>Sua cliente agenda sozinha em 3 cliques</div>
-                </div>
-                <div style={{ background: P.card, border: `1px solid ${P.border}`, borderRadius: 12, padding: 16 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: 12, marginBottom: 12, borderBottom: `1px solid ${P.border}` }}>
-                    <span style={{ fontSize: 10, fontWeight: 700, color: P.muted, textTransform: 'uppercase', letterSpacing: 0.5 }}>Seu Painel</span>
-                    <span style={{ fontSize: 9, fontWeight: 600, color: '#10b981', background: 'rgba(16,185,129,0.1)', padding: '2px 8px', borderRadius: 999 }}>Hoje</span>
-                  </div>
-                  <div style={{ marginBottom: 14 }}>
-                    <div style={{ fontSize: 9, color: P.muted, marginBottom: 4 }}>Faturado hoje</div>
-                    <div style={{ fontSize: 28, fontWeight: 900, color: P.accent }}>R$ 360</div>
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                    {['09:00 — Lash Lifting', '11:00 — Volume Russo'].map(a => (
-                      <div key={a} style={{ background: P.bg, borderRadius: 8, padding: '6px 10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 9 }}>
-                        <span style={{ color: P.text }}>{a}</span>
-                        <span style={{ color: '#10b981', fontWeight: 700 }}>✓</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+            {/* Notch */}
+            <div style={{
+              position: 'absolute', top: 14, left: '50%', transform: 'translateX(-50%)',
+              width: 80, height: 22, background: '#0e0e16',
+              borderRadius: 12, zIndex: 10,
+              border: '1.5px solid rgba(233,30,140,0.2)',
+            }} />
+
+            {/* Sliding screens */}
+            <div style={{ position: 'absolute', inset: 0, borderRadius: 38, overflow: 'hidden' }}>
+              <AnimatePresence mode="wait" initial={false} custom={direction}>
+                <motion.img
+                  key={activeScreen}
+                  src={SCREENS[activeScreen]}
+                  alt={SCREEN_LABELS[activeScreen]}
+                  custom={direction}
+                  initial={{ x: direction * 260, opacity: 0.6 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  exit={{ x: direction * -260, opacity: 0.6 }}
+                  transition={{ duration: 0.55, ease: EASE }}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', display: 'block' }}
+                />
+              </AnimatePresence>
             </div>
           </motion.div>
+
+          {/* Dot indicators */}
+          <div style={{ display: 'flex', gap: 8 }}>
+            {SCREENS.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => { setDirection(i > activeScreen ? 1 : -1); setActiveScreen(i); }}
+                style={{
+                  width: i === activeScreen ? 24 : 8,
+                  height: 8,
+                  borderRadius: 999,
+                  background: i === activeScreen ? P.accent : P.border,
+                  border: 'none',
+                  cursor: 'pointer',
+                  padding: 0,
+                  transition: 'all 0.35s ease',
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Label */}
+          <motion.p
+            key={activeScreen}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            style={{ fontSize: 12, color: P.muted, letterSpacing: 1, textTransform: 'uppercase', fontWeight: 600 }}
+          >
+            {SCREEN_LABELS[activeScreen]}
+          </motion.p>
         </motion.div>
       </section>
 
