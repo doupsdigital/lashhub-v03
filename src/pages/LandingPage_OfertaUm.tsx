@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Check, Bell, Calendar, BookOpen, TrendingUp, Clock, ShieldCheck, Sparkles, ChevronDown, XCircle, CheckCircle2, Users, LayoutGrid, Percent, Monitor, Heart, Zap, Wallet, Smartphone } from 'lucide-react';
+import { ArrowRight, Check, Bell, Calendar, BookOpen, TrendingUp, Clock, ShieldCheck, Sparkles, ChevronDown, XCircle, CheckCircle2, Users, LayoutGrid, Percent, Monitor, Heart, Zap, Wallet, Smartphone, CreditCard, LogIn } from 'lucide-react';
 
 // ── Animation presets ──────────────────────────────────────────────────────
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -162,7 +162,6 @@ export default function LandingPage_OfertaUm() {
             <span className="hidden min-[380px]:inline" style={{ fontWeight: 800, fontSize: 17, background: `linear-gradient(135deg, ${P.accent}, #e88faa)`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Lash Hub</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-            <Link to="/login" style={{ color: P.muted, fontSize: 13, fontWeight: 600, textDecoration: 'none' }}>Entrar</Link>
             <motion.button
               onClick={() => navigate('/cadastro')}
               whileHover={{ scale: 1.06, boxShadow: `0 6px 28px rgba(200,75,114,0.4)` }}
@@ -226,19 +225,23 @@ export default function LandingPage_OfertaUm() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.5, duration: 0.6, ease: EASE }}
-              style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 32 }}
+              className="grid sm:flex flex-wrap justify-center lg:justify-start"
+              style={{ gap: 12, marginBottom: 32 }}
             >
               <motion.button
                 onClick={() => navigate('/cadastro')}
                 whileHover={{ scale: 1.05, boxShadow: `0 12px 40px rgba(200,75,114,0.45)` }}
                 whileTap={{ scale: 0.97 }}
                 transition={SPRING}
-                style={{ background: P.accent, color: '#fff', border: 'none', borderRadius: 14, padding: '15px 28px', fontWeight: 700, fontSize: 15, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8, boxShadow: `0 8px 32px rgba(200,75,114,0.35)` }}
+                style={{ background: P.accent, color: '#fff', border: 'none', borderRadius: 14, padding: '15px 28px', fontWeight: 700, fontSize: 15, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, boxShadow: `0 8px 32px rgba(200,75,114,0.35)` }}
               >
                 Testar 14 dias grátis <ArrowRight size={16} />
               </motion.button>
-              <Link to="/login" style={{ color: P.muted, fontSize: 14, fontWeight: 500, textDecoration: 'none', padding: '15px 20px', border: `1px solid ${P.border}`, borderRadius: 14, display: 'flex', alignItems: 'center' }}>
-                Já tenho conta
+              <Link
+                to="/login"
+                style={{ color: P.text, fontSize: 14, fontWeight: 600, textDecoration: 'none', padding: '15px 20px', background: 'rgba(255,255,255,0.85)', border: `1px solid rgba(200,75,114,0.25)`, borderRadius: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, boxShadow: '0 2px 10px rgba(0,0,0,0.05)' }}
+              >
+                <LogIn size={16} /> Já tenho conta
               </Link>
             </motion.div>
 
@@ -247,11 +250,16 @@ export default function LandingPage_OfertaUm() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.7, duration: 0.5 }}
-              style={{ display: 'flex', gap: 20, flexWrap: 'wrap' }}
+              className="flex flex-wrap justify-center lg:justify-start"
+              style={{ gap: 20 }}
             >
-              {['14 dias grátis', 'Sem cartão de crédito', 'Garantia 7 dias'].map(b => (
-                <span key={b} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: P.muted }}>
-                  <Check size={13} color={P.accent} /> {b}
+              {[
+                { icon: <Clock size={14} />, text: '14 dias grátis' },
+                { icon: <CreditCard size={14} />, text: 'Sem cartão de crédito' },
+                { icon: <ShieldCheck size={14} />, text: 'Garantia 7 dias' },
+              ].map(b => (
+                <span key={b.text} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 600, color: P.text }}>
+                  <span style={{ color: P.accent, display: 'flex' }}>{b.icon}</span> {b.text}
                 </span>
               ))}
             </motion.div>
@@ -385,7 +393,7 @@ export default function LandingPage_OfertaUm() {
           >
             <motion.p variants={fadeUp} style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 2, color: P.accent, marginBottom: 12 }}>Por que o Lash Hub é diferente</motion.p>
             <motion.h2 variants={fadeUp} style={{ fontSize: 'clamp(24px, 3.5vw, 42px)', fontWeight: 900, lineHeight: 1.15, letterSpacing: -0.5 }}>
-              Sistemas de salão não foram feitos<br />pra Lash Designer.
+              Sistemas de salão não foram feitos <br className="hidden sm:block" />pra Lash Designer.
             </motion.h2>
             <motion.p variants={fadeUp} style={{ fontSize: 15, color: P.muted, maxWidth: 520, margin: '12px auto 0', lineHeight: 1.7 }}>
               Eles têm comissões, equipes, múltiplos profissionais. Você atende por conta própria. Você precisa de outra coisa.
