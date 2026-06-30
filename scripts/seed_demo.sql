@@ -104,9 +104,19 @@ BEGIN
   -- ======================================================================
   -- 3. USUÁRIOS (PROFISSIONAIS)
   -- ======================================================================
-  usr1 := gen_random_uuid(); usr2 := gen_random_uuid();
-  usr3 := gen_random_uuid(); usr4 := gen_random_uuid();
-  usr5 := gen_random_uuid();
+  -- IDs vêm de auth.users (não são gerados aqui) porque public.usuarios.id
+  -- precisa ser o mesmo ID da conta de autenticação correspondente — é
+  -- assim que o login (signInWithPassword) resolve o profissional certo.
+  -- Rode antes: node scripts/create_demo_auth_users.mjs
+  SELECT id INTO usr1 FROM auth.users WHERE email = 'mariana@studiomlash.com.br';
+  SELECT id INTO usr2 FROM auth.users WHERE email = 'beatriz@belashstudio.com.br';
+  SELECT id INTO usr3 FROM auth.users WHERE email = 'gabriela@gabicostacilos.com.br';
+  SELECT id INTO usr4 FROM auth.users WHERE email = 'fernanda@fernandalash.com.br';
+  SELECT id INTO usr5 FROM auth.users WHERE email = 'camila@camilalash.com.br';
+
+  IF usr1 IS NULL OR usr2 IS NULL OR usr3 IS NULL OR usr4 IS NULL OR usr5 IS NULL THEN
+    RAISE EXCEPTION 'Contas de autenticação demo não encontradas. Rode "node scripts/create_demo_auth_users.mjs" antes deste seed.';
+  END IF;
 
   INSERT INTO public.usuarios (id, estabelecimento_id, nome, email, role, telefone, created_at) VALUES
     (usr1, est1, 'Mariana Lima',       'mariana@studiomlash.com.br',      'profissional', '(11) 99201-3344', NOW() - INTERVAL '4 months'),
@@ -365,7 +375,7 @@ BEGIN
   cl3_07:=gen_random_uuid(); cl3_08:=gen_random_uuid(); cl3_09:=gen_random_uuid();
   cl3_10:=gen_random_uuid();
 
-  INSERT INTO public.clientes (id,estabelecimento_id,nome,sobrenome,email,whatsapp,data_nascimento,observacoes,alernese_lash,anamnese_lash,created_at) VALUES
+  INSERT INTO public.clientes (id,estabelecimento_id,nome,sobrenome,email,whatsapp,data_nascimento,observacoes,alergias,anamnese_lash,created_at) VALUES
     (cl3_01,est3,'Aline','Pereira','aline.pereira@gmail.com','(31) 99111-2233','1994-05-20','Veio pelo Instagram.',NULL,'{"curvatura":"D","espessura":"0.07","mapping":"Cat Eye","fez_extensao_antes":true,"reacao_alergica_anterior":false}'::jsonb, NOW() - INTERVAL '3 months'),
     (cl3_02,est3,'Tatiane','Oliveira','tatiane.oliveira@gmail.com','(31) 98222-3344','1991-10-08','Indicação da Aline.',NULL,'{"curvatura":"C","espessura":"0.07","mapping":"Efeito Natural","fez_extensao_antes":true,"reacao_alergica_anterior":false}'::jsonb, NOW() - INTERVAL '2 months'),
     (cl3_03,est3,'Renata','Costa','renata.costa@hotmail.com','(31) 97333-4455','1987-03-12','Prefere tarde.',NULL,'{"curvatura":"CC","espessura":"0.07","mapping":"Volumoso","fez_extensao_antes":true,"reacao_alergica_anterior":false}'::jsonb, NOW() - INTERVAL '2 months'),
