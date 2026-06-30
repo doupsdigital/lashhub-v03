@@ -32,7 +32,9 @@ import LandingPage_v6 from './pages/LandingPage_v6';
 import LandingPage_v7 from './pages/LandingPage_v7';
 import LandingPage_v8 from './pages/LandingPage_v8';
 import LandingPage_OfertaUm from './pages/LandingPage_OfertaUm';
+import LandingPage_OfertaUm_Dark from './pages/LandingPage_OfertaUm_Dark';
 import LandingPage_OfertaDois from './pages/LandingPage_OfertaDois';
+import LandingPage_OfertaDois_Dark from './pages/LandingPage_OfertaDois_Dark';
 
 
 import PlanGuard from './components/common/PlanGuard';
@@ -96,7 +98,9 @@ export default function App() {
             <Route path="/v7" element={<LandingPage_v7 />} />
             <Route path="/v8" element={<LandingPage_v8 />} />
             <Route path="/oferta1" element={<LandingPage_OfertaUm />} />
+            <Route path="/oferta1-dark" element={<LandingPage_OfertaUm_Dark />} />
             <Route path="/oferta2" element={<LandingPage_OfertaDois />} />
+            <Route path="/oferta2-dark" element={<LandingPage_OfertaDois_Dark />} />
             <Route path="/" element={<HomeRoute />} />
             <Route path="/login" element={<Login />} />
             <Route path="/cadastro" element={<CadastroProfissional />} />
