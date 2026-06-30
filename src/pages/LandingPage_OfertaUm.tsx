@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Check, Bell, Calendar, BookOpen, TrendingUp, Clock, ShieldCheck, Sparkles, ChevronDown } from 'lucide-react';
+import { ArrowRight, Check, Bell, Calendar, BookOpen, TrendingUp, Clock, ShieldCheck, Sparkles, ChevronDown, XCircle, CheckCircle2, Users, LayoutGrid, Percent, Monitor, Heart, Zap, Wallet, Smartphone } from 'lucide-react';
 
 // ── Animation presets ──────────────────────────────────────────────────────
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -76,10 +76,16 @@ const features = [
   { icon: <Sparkles size={20} />, title: 'App para as suas clientes', desc: 'Elas salvam o link do seu estúdio no celular como ícone. Parece um app — porque é, mas sem baixar de loja.' },
 ];
 
+const steps = [
+  { n: '01', title: 'Você compartilha seu link', desc: 'Cole na bio do Instagram, mande no WhatsApp. É o endereço digital do seu estúdio.' },
+  { n: '02', title: 'Sua cliente salva como app', desc: 'Ela abre o link e salva na tela inicial do celular com um toque. Fica o ícone do seu estúdio ali.' },
+  { n: '03', title: 'Ela agenda, você recebe o aviso', desc: 'Ela escolhe o serviço e o horário. Você recebe uma notificação no celular na hora.' },
+];
+
 const testimonials = [
-  { text: 'Nunca mais fui acordada às 23h por mensagem de agendamento. As clientes resolvem tudo sozinhas pelo app do estúdio.', name: 'Mariana Silva', role: 'Lash Designer • Mariana Cílios' },
-  { text: 'O que mais amo é a ficha de cada cliente. Chego no atendimento já sabendo a curvatura, espessura e tudo do histórico dela.', name: 'Beatriz Oliveira', role: 'Lash Designer • Bia Lash' },
-  { text: 'Minha agenda nunca mais ficou bagunçada. E ver o quanto faturei no mês sem precisar contar no papel é incrível.', name: 'Gabriela Costa', role: 'Lash Designer • Gabi Cílios' },
+  { text: 'Minha agenda nunca mais ficou bagunçada. As clientes agendam sozinhas e eu só apareço pra atender.', name: 'Mariana Silva', role: 'Lash Designer • Mariana Cílios' },
+  { text: 'Antes abria o WhatsApp e tinha 30 mensagens pra marcar horário. Hoje não existe mais isso.', name: 'Beatriz Oliveira', role: 'Lash Designer • Bia Lash' },
+  { text: 'A ficha de cada cliente fica salva. Lembro da curvatura e do mapping sem precisar anotar em papel.', name: 'Gabriela Costa', role: 'Lash Designer • Gabi Cílios' },
 ];
 
 const faqs = [
@@ -87,6 +93,20 @@ const faqs = [
   { q: 'O Lash Hub cobra taxa em cima de cada atendimento?', a: 'Não. O valor de cada procedimento é 100% seu. Você paga apenas a mensalidade fixa do plano.' },
   { q: 'Preciso configurar tudo do zero?', a: 'Não. Quando você entra, o sistema já vem com 10 serviços de Lash e sobrancelhas pré-cadastrados. É só ajustar e começar a usar.' },
   { q: 'Como funciona o período de teste?', a: 'Você ganha 14 dias de acesso completo. Não pedimos cartão de crédito pra começar.' },
+];
+
+const badPoints = [
+  { icon: <Users size={14} />, text: 'Feitos pra equipes com 10, 20 funcionários' },
+  { icon: <LayoutGrid size={14} />, text: 'Cheios de menus que você nunca vai usar' },
+  { icon: <Percent size={14} />, text: 'Cobram porcentagem de cada atendimento' },
+  { icon: <Monitor size={14} />, text: 'Você precisa de computador pra usar direito' },
+];
+
+const goodPoints = [
+  { icon: <Heart size={14} />, text: 'Pensado pra quem trabalha com Lash por conta própria' },
+  { icon: <Zap size={14} />, text: 'Só o que você realmente precisa no dia a dia' },
+  { icon: <Wallet size={14} />, text: 'Mensalidade fixa — 0% de taxa por atendimento' },
+  { icon: <Smartphone size={14} />, text: 'Feito pro celular, funciona de qualquer lugar' },
 ];
 
 // ── Component ──────────────────────────────────────────────────────────────
@@ -136,7 +156,9 @@ export default function LandingPage_OfertaUm() {
           style={{ backdropFilter: 'blur(20px)', border: `1px solid ${P.border}`, borderRadius: 999, padding: '10px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }} onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <div style={{ width: 30, height: 30, borderRadius: 8, background: `linear-gradient(135deg, ${P.accent}, #e88faa)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: 11, color: '#fff' }}>LH</div>
+            <div style={{ width: 38, height: 38, borderRadius: 10, background: `linear-gradient(135deg, ${P.accent}, #e88faa)`, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: `0 4px 14px rgba(200,75,114,0.35)`, overflow: 'hidden', padding: 2 }}>
+              <img src="/logo-login.png" alt="Lash Hub" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+            </div>
             <span className="hidden min-[380px]:inline" style={{ fontWeight: 800, fontSize: 17, background: `linear-gradient(135deg, ${P.accent}, #e88faa)`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Lash Hub</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
@@ -300,13 +322,12 @@ export default function LandingPage_OfertaUm() {
               </motion.div>
             </motion.div>
 
-            {/* Floating notification chip — hidden on mobile */}
+            {/* Floating notification chip */}
             <motion.div
-              className="hidden sm:flex"
               initial={{ opacity: 0, x: -24 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 2.2, duration: 0.6, ease: EASE }}
-              style={{ position: 'absolute', top: 10, left: -10, zIndex: 3 }}
+              style={{ position: 'absolute', top: 10, left: 0, zIndex: 3, display: 'flex' }}
             >
               <motion.div
                 animate={{ y: [0, -10, 0] }}
@@ -327,7 +348,7 @@ export default function LandingPage_OfertaUm() {
       {/* ── COUNTER STATS ── */}
       <motion.section
         ref={statsRef}
-        style={{ position: 'relative', zIndex: 1, padding: '60px 20px', background: P.accent }}
+        style={{ position: 'relative', zIndex: 1, padding: 'clamp(36px, 6vw, 60px) 20px', background: P.accent }}
       >
         <div style={{ maxWidth: 800, margin: '0 auto' }}>
           <motion.div
@@ -353,7 +374,7 @@ export default function LandingPage_OfertaUm() {
       </motion.section>
 
       {/* ── COMPARISON ── */}
-      <section style={{ position: 'relative', zIndex: 1, padding: '80px 20px', background: '#f3f0eb' }}>
+      <section style={{ position: 'relative', zIndex: 1, padding: 'clamp(44px, 8vw, 80px) 20px', background: '#f3f0eb' }}>
         <div style={{ maxWidth: 900, margin: '0 auto', textAlign: 'center' }}>
           <motion.div
             initial="hidden"
@@ -371,7 +392,24 @@ export default function LandingPage_OfertaUm() {
             </motion.p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-left">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-left" style={{ position: 'relative' }}>
+
+            {/* VS badge — desktop only, floats between the two cards */}
+            <div
+              className="hidden md:flex"
+              style={{
+                position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 10,
+                width: 52, height: 52, borderRadius: '50%',
+                background: `linear-gradient(135deg, ${P.accent}, #e88faa)`,
+                alignItems: 'center', justifyContent: 'center',
+                color: '#fff', fontWeight: 900, fontSize: 14, letterSpacing: 0.5,
+                boxShadow: '0 10px 30px rgba(200,75,114,0.45)',
+                border: '4px solid #f3f0eb',
+              }}
+            >
+              VS
+            </div>
+
             {/* Bad systems — slides from left */}
             <motion.div
               initial={{ opacity: 0, x: -40 }}
@@ -380,14 +418,28 @@ export default function LandingPage_OfertaUm() {
               transition={{ duration: 0.65, ease: EASE }}
               style={{ background: '#fff0f0', border: '1px solid #ffd0d0', borderRadius: 20, padding: 28 }}
             >
-              <h3 style={{ fontSize: 14, fontWeight: 700, color: '#b91c1c', marginBottom: 16 }}>✗ Sistemas genéricos de salão</h3>
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
-                {['Feitos pra equipes com 10, 20 funcionários', 'Cheios de menus que você nunca vai usar', 'Cobram porcentagem de cada atendimento', 'Você precisa de computador pra usar direito'].map(i => (
-                  <li key={i} style={{ fontSize: 13, color: '#7f1d1d', display: 'flex', alignItems: 'flex-start', gap: 8 }}>
-                    <span style={{ color: '#b91c1c', fontWeight: 700, marginTop: 1 }}>×</span> {i}
-                  </li>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
+                <div style={{ width: 44, height: 44, borderRadius: '50%', background: '#fee2e2', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <XCircle size={24} color="#dc2626" />
+                </div>
+                <h3 style={{ fontSize: 15, fontWeight: 800, color: '#b91c1c', lineHeight: 1.3 }}>Sistemas genéricos de salão</h3>
+              </div>
+              <motion.ul
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                variants={stagger(0.07)}
+                style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 12 }}
+              >
+                {badPoints.map((p, i) => (
+                  <motion.li key={i} variants={fadeUp} style={{ fontSize: 13, color: '#7f1d1d', display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <span style={{ width: 26, height: 26, borderRadius: 8, background: '#fee2e2', color: '#dc2626', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      {p.icon}
+                    </span>
+                    {p.text}
+                  </motion.li>
                 ))}
-              </ul>
+              </motion.ul>
             </motion.div>
 
             {/* Lash Hub — slides from right */}
@@ -399,21 +451,35 @@ export default function LandingPage_OfertaUm() {
               whileHover={{ y: -4, boxShadow: `0 20px 60px rgba(200,75,114,0.15)`, transition: { type: 'spring', stiffness: 300 } }}
               style={{ background: P.accentLight, border: `2px solid ${P.accent}`, borderRadius: 20, padding: 28 }}
             >
-              <h3 style={{ fontSize: 14, fontWeight: 700, color: P.accent, marginBottom: 16 }}>✓ Lash Hub</h3>
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
-                {['Pensado pra quem trabalha com Lash por conta própria', 'Só o que você realmente precisa no dia a dia', 'Mensalidade fixa — 0% de taxa por atendimento', 'Feito pro celular, funciona de qualquer lugar'].map(i => (
-                  <li key={i} style={{ fontSize: 13, color: P.accentDark, display: 'flex', alignItems: 'flex-start', gap: 8, fontWeight: 500 }}>
-                    <Check size={14} color={P.accent} style={{ marginTop: 2, flexShrink: 0 }} /> {i}
-                  </li>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
+                <div style={{ width: 44, height: 44, borderRadius: '50%', background: P.accent, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: `0 6px 18px rgba(200,75,114,0.4)` }}>
+                  <CheckCircle2 size={24} color="#fff" />
+                </div>
+                <h3 style={{ fontSize: 15, fontWeight: 800, color: P.accent, lineHeight: 1.3 }}>Lash Hub</h3>
+              </div>
+              <motion.ul
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.3 }}
+                variants={stagger(0.07, 0.05)}
+                style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 12 }}
+              >
+                {goodPoints.map((p, i) => (
+                  <motion.li key={i} variants={fadeUp} style={{ fontSize: 13, color: P.accentDark, display: 'flex', alignItems: 'center', gap: 10, fontWeight: 500 }}>
+                    <span style={{ width: 26, height: 26, borderRadius: 8, background: P.accent, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      {p.icon}
+                    </span>
+                    {p.text}
+                  </motion.li>
                 ))}
-              </ul>
+              </motion.ul>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* ── FEATURES ── */}
-      <section style={{ position: 'relative', zIndex: 1, padding: '80px 20px' }}>
+      <section style={{ position: 'relative', zIndex: 1, padding: 'clamp(44px, 8vw, 80px) 20px', background: P.accent }}>
         <div style={{ maxWidth: 1040, margin: '0 auto' }}>
           <motion.div
             initial="hidden"
@@ -422,9 +488,9 @@ export default function LandingPage_OfertaUm() {
             variants={stagger(0.08)}
             style={{ textAlign: 'center', marginBottom: 56 }}
           >
-            <motion.h2 variants={fadeUp} style={{ fontSize: 'clamp(26px, 4vw, 48px)', fontWeight: 900, lineHeight: 1.1, letterSpacing: -0.5 }}>
+            <motion.h2 variants={fadeUp} style={{ fontSize: 'clamp(26px, 4vw, 48px)', fontWeight: 900, lineHeight: 1.1, letterSpacing: -0.5, color: '#fff' }}>
               Tudo que você precisa.{' '}
-              <span style={{ color: P.accent }}>Exatamente do jeito que você precisa.</span>
+              <span style={{ color: 'rgba(255,255,255,0.75)' }}>Exatamente do jeito que você precisa.</span>
             </motion.h2>
           </motion.div>
           <motion.div
@@ -451,8 +517,47 @@ export default function LandingPage_OfertaUm() {
         </div>
       </section>
 
+      {/* ── HOW IT WORKS ── */}
+      <section style={{ position: 'relative', zIndex: 1, padding: 'clamp(44px, 8vw, 80px) 20px' }}>
+        <div style={{ maxWidth: 960, margin: '0 auto', textAlign: 'center' }}>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}
+            variants={stagger(0.08)}
+            style={{ marginBottom: 48 }}
+          >
+            <motion.p variants={fadeUp} style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 2, color: P.accent, marginBottom: 12 }}>Como funciona pra sua cliente</motion.p>
+            <motion.h2 variants={fadeUp} style={{ fontSize: 'clamp(24px, 3.5vw, 42px)', fontWeight: 900, letterSpacing: -0.5 }}>
+              Do link ao agendamento em 3 passos
+            </motion.h2>
+          </motion.div>
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-3 gap-5 text-left"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            variants={stagger(0.13)}
+          >
+            {steps.map((s, i) => (
+              <motion.div
+                key={i}
+                variants={fadeUp}
+                whileHover={{ y: -6, boxShadow: '0 20px 50px rgba(0,0,0,0.08)', transition: { type: 'spring', stiffness: 300, damping: 20 } }}
+                style={{ background: P.card, border: `1px solid ${P.border}`, borderRadius: 16, padding: 28, position: 'relative', overflow: 'hidden', boxShadow: '0 2px 12px rgba(0,0,0,0.04)' }}
+              >
+                <div style={{ position: 'absolute', top: 12, right: 16, fontSize: 52, fontWeight: 900, color: 'rgba(200,75,114,0.08)', lineHeight: 1 }}>{s.n}</div>
+                <div style={{ fontSize: 32, fontWeight: 900, color: P.accent, marginBottom: 14, lineHeight: 1 }}>{s.n}</div>
+                <h3 style={{ fontSize: 15, fontWeight: 700, marginBottom: 10, color: P.text }}>{s.title}</h3>
+                <p style={{ fontSize: 13, color: P.muted, lineHeight: 1.7 }}>{s.desc}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
       {/* ── TESTIMONIALS ── */}
-      <section style={{ position: 'relative', zIndex: 1, padding: '80px 20px', background: '#f3f0eb' }}>
+      <section style={{ position: 'relative', zIndex: 1, padding: 'clamp(44px, 8vw, 80px) 20px', background: P.accent }}>
         <div style={{ maxWidth: 1040, margin: '0 auto' }}>
           <motion.div
             initial="hidden"
@@ -461,7 +566,7 @@ export default function LandingPage_OfertaUm() {
             variants={fadeUp}
             style={{ textAlign: 'center', marginBottom: 48 }}
           >
-            <h2 style={{ fontSize: 'clamp(24px, 3.5vw, 40px)', fontWeight: 900, letterSpacing: -0.5 }}>O que dizem as Lash Designers</h2>
+            <h2 style={{ fontSize: 'clamp(24px, 3.5vw, 40px)', fontWeight: 900, letterSpacing: -0.5, color: '#fff' }}>O que dizem as Lash Designers</h2>
           </motion.div>
           <motion.div
             className="grid grid-cols-1 md:grid-cols-3 gap-4"
@@ -490,7 +595,7 @@ export default function LandingPage_OfertaUm() {
       </section>
 
       {/* ── PRICING ── */}
-      <section style={{ position: 'relative', zIndex: 1, padding: '80px 20px' }}>
+      <section style={{ position: 'relative', zIndex: 1, padding: 'clamp(44px, 8vw, 80px) 20px' }}>
         <div style={{ maxWidth: 740, margin: '0 auto', textAlign: 'center' }}>
           <motion.div
             initial="hidden"
@@ -520,13 +625,19 @@ export default function LandingPage_OfertaUm() {
                 <span style={{ fontSize: 40, fontWeight: 900, color: P.text }}>59,90</span>
                 <span style={{ fontSize: 11, color: P.muted }}>/mês</span>
               </div>
-              <div style={{ paddingTop: 20, borderTop: `1px solid ${P.border}`, display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 24 }}>
+              <div style={{ paddingTop: 20, borderTop: `1px solid ${P.border}`, display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 24 }}>
                 {['Ficha de cada cliente', 'Histórico de atendimentos', 'Controle dos seus ganhos'].map(f => (
-                  <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: P.muted }}>
-                    <Check size={14} color={P.accent} /> {f}
+                  <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: 15, color: P.text, fontWeight: 500 }}>
+                    <span style={{ width: 24, height: 24, borderRadius: '50%', background: P.accentLight, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <Check size={14} color={P.accent} />
+                    </span>
+                    {f}
                   </div>
                 ))}
-                <div style={{ fontSize: 12, color: P.faint, marginTop: 4 }}>× Sem agenda online</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: 14, color: P.faint }}>
+                  <span style={{ width: 24, height: 24, borderRadius: '50%', background: '#f0ece5', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 13 }}>×</span>
+                  Sem agenda online
+                </div>
               </div>
               <motion.button
                 onClick={() => navigate('/cadastro')}
@@ -549,10 +660,13 @@ export default function LandingPage_OfertaUm() {
                 <span style={{ fontSize: 40, fontWeight: 900, color: P.accent }}>99,90</span>
                 <span style={{ fontSize: 11, color: P.muted }}>/mês</span>
               </div>
-              <div style={{ paddingTop: 20, borderTop: `1px solid ${P.border}`, display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 24 }}>
+              <div style={{ paddingTop: 20, borderTop: `1px solid ${P.border}`, display: 'flex', flexDirection: 'column', gap: 14, marginBottom: 24 }}>
                 {['Tudo do plano básico', 'Agenda online 24h', 'App para suas clientes', 'Avisos no celular'].map(f => (
-                  <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: P.text }}>
-                    <Check size={14} color={P.accent} /> {f}
+                  <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: 15, color: P.text, fontWeight: 600 }}>
+                    <span style={{ width: 24, height: 24, borderRadius: '50%', background: P.accent, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <Check size={14} color="#fff" />
+                    </span>
+                    {f}
                   </div>
                 ))}
               </div>
@@ -569,7 +683,7 @@ export default function LandingPage_OfertaUm() {
       </section>
 
       {/* ── FAQ ── */}
-      <section style={{ position: 'relative', zIndex: 1, padding: '80px 20px', background: '#f3f0eb' }}>
+      <section style={{ position: 'relative', zIndex: 1, padding: 'clamp(44px, 8vw, 80px) 20px', background: P.accent }}>
         <div style={{ maxWidth: 720, margin: '0 auto' }}>
           <motion.div
             initial="hidden"
@@ -578,8 +692,8 @@ export default function LandingPage_OfertaUm() {
             variants={stagger(0.08)}
             style={{ textAlign: 'center', marginBottom: 48 }}
           >
-            <motion.p variants={fadeUp} style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 2, color: P.accent, marginBottom: 12 }}>Ainda com dúvidas?</motion.p>
-            <motion.h2 variants={fadeUp} style={{ fontSize: 'clamp(24px, 3.5vw, 42px)', fontWeight: 900, letterSpacing: -0.5 }}>Perguntas frequentes</motion.h2>
+            <motion.p variants={fadeUp} style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 2, color: 'rgba(255,255,255,0.8)', marginBottom: 12 }}>Ainda com dúvidas?</motion.p>
+            <motion.h2 variants={fadeUp} style={{ fontSize: 'clamp(24px, 3.5vw, 42px)', fontWeight: 900, letterSpacing: -0.5, color: '#fff' }}>Perguntas frequentes</motion.h2>
           </motion.div>
 
           <motion.div
@@ -601,7 +715,7 @@ export default function LandingPage_OfertaUm() {
                     onClick={() => setOpenFaq(isOpen ? null : i)}
                     style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '18px 22px', background: 'transparent', border: 'none', cursor: 'pointer', textAlign: 'left', gap: 16 }}
                   >
-                    <span style={{ fontSize: 14, fontWeight: 700, color: P.text }}>{faq.q}</span>
+                    <span style={{ fontSize: 15, fontWeight: 500, color: P.text }}>{faq.q}</span>
                     <motion.span
                       animate={{ rotate: isOpen ? 180 : 0 }}
                       transition={{ duration: 0.3, ease: EASE }}
@@ -632,7 +746,7 @@ export default function LandingPage_OfertaUm() {
       </section>
 
       {/* ── GUARANTEE ── */}
-      <section style={{ position: 'relative', zIndex: 1, padding: '56px 20px', textAlign: 'center', background: '#f3f0eb' }}>
+      <section style={{ position: 'relative', zIndex: 1, padding: 'clamp(36px, 6vw, 56px) 20px', textAlign: 'center', background: '#f3f0eb' }}>
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -651,7 +765,7 @@ export default function LandingPage_OfertaUm() {
       </section>
 
       {/* ── FINAL CTA ── */}
-      <section style={{ position: 'relative', zIndex: 1, padding: '80px 20px', background: P.accent, textAlign: 'center' }}>
+      <section style={{ position: 'relative', zIndex: 1, padding: 'clamp(44px, 8vw, 80px) 20px', background: P.accent, textAlign: 'center' }}>
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -681,17 +795,14 @@ export default function LandingPage_OfertaUm() {
       </section>
 
       {/* ── FOOTER ── */}
-      <footer style={{ position: 'relative', zIndex: 1, padding: '32px 20px', background: P.accentDark, textAlign: 'center' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 12 }}>
-          <div style={{ width: 24, height: 24, borderRadius: 6, background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 900, color: P.accent }}>LH</div>
-          <span style={{ fontWeight: 800, fontSize: 14, color: '#fff' }}>Lash Hub</span>
+      <footer style={{ position: 'relative', zIndex: 1, padding: '24px 20px', background: P.accentDark, textAlign: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginBottom: 10 }}>
+          <div style={{ width: 28, height: 28, borderRadius: 8, background: `linear-gradient(135deg, ${P.accent}, #e88faa)`, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', padding: 2, boxShadow: '0 2px 8px rgba(0,0,0,0.15)' }}>
+            <img src="/logo-login.png" alt="Lash Hub" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+          </div>
+          <span style={{ fontWeight: 800, fontSize: 13, color: '#fff' }}>Lash Hub</span>
         </div>
         <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)' }}>© {new Date().getFullYear()} Lash Hub. Todos os direitos reservados.</p>
-        <div style={{ marginTop: 12, display: 'flex', gap: 16, justifyContent: 'center' }}>
-          <Link to="/login" style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)', textDecoration: 'none' }}>Login</Link>
-          <span style={{ color: 'rgba(255,255,255,0.3)' }}>•</span>
-          <Link to="/cadastro" style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)', textDecoration: 'none' }}>Cadastro</Link>
-        </div>
       </footer>
 
     </div>
