@@ -3,8 +3,12 @@ import { useAuth } from '../../contexts/AuthContext';
 import LandingPage_OfertaUm from '../../pages/LandingPage_OfertaUm';
 
 // Rota raiz ("/"): pública por padrão (landing page de marketing), mas
-// redireciona automaticamente quem já está logada — cobre o caso do PWA
-// instalado (start_url "/") e de quem digita o link principal de memória.
+// redireciona automaticamente quem já tem uma sessão ATIVA — cobre o caso
+// do PWA instalado (start_url "/") e de quem digita o link principal de
+// memória. Não há fallback por localStorage aqui de propósito: redirecionar
+// com base em "último portal visitado" sem uma sessão real prende qualquer
+// pessoa sem sessão (inclusive a própria profissional testando seu portal)
+// numa página sem volta, já que o portal não linka de volta pro /login.
 export default function HomeRoute() {
   const { user, isProfissional, estabelecimentoSlug, loading } = useAuth();
 
@@ -29,13 +33,6 @@ export default function HomeRoute() {
     }
     if (estabelecimentoSlug) {
       return <Navigate to={`/portal/${estabelecimentoSlug}/catalogo`} replace />;
-    }
-  } else {
-    // Sem sessão ativa: tenta o último portal visitado (cliente que instalou
-    // o app manualmente durante navegação anônima no catálogo, sem login).
-    const lastPortalSlug = localStorage.getItem('lashhub_last_portal_slug');
-    if (lastPortalSlug) {
-      return <Navigate to={`/portal/${lastPortalSlug}/catalogo`} replace />;
     }
   }
 

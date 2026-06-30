@@ -61,11 +61,6 @@ export function PortalProvider({ children }: { children: React.ReactNode }) {
         setNomeNegocio(est.nome_negocio);
         setPlano(est.plano || 'basico');
 
-        // Lembra o último portal visitado — usado como fallback na raiz "/"
-        // quando o app é aberto sem sessão ativa (ex: instalado manualmente
-        // pelo menu do navegador durante navegação anônima no catálogo).
-        localStorage.setItem('lashhub_last_portal_slug', slug!);
-
         // 2. Buscar configurações do estabelecimento
         const { data: config, error: configError } = await supabase
           .from('configuracao_negocio')
