@@ -167,8 +167,11 @@ export default function LandingPage_OfertaDois() {
       </motion.div>
 
       {/* ── HERO ── */}
-      <section style={{ position: 'relative', zIndex: 1, minHeight: '100vh', padding: '120px 20px 80px', maxWidth: 1100, margin: '0 auto', display: 'flex', alignItems: 'center' }}>
-        <div className="flex flex-col lg:flex-row items-center gap-12 w-full">
+      <section
+        className="pt-[120px] lg:pt-[90px]"
+        style={{ position: 'relative', zIndex: 1, minHeight: '100vh', paddingLeft: 20, paddingRight: 20, paddingBottom: 80, maxWidth: 1100, margin: '0 auto', display: 'flex', alignItems: 'center' }}
+      >
+        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12 w-full">
 
           {/* Left — text */}
           <div className="flex-1 text-center lg:text-left">
@@ -188,7 +191,7 @@ export default function LandingPage_OfertaDois() {
               initial="hidden"
               animate="visible"
               variants={stagger(0.07, 0.5)}
-              style={{ fontSize: 'clamp(34px, 5vw, 64px)', fontWeight: 900, lineHeight: 1.08, letterSpacing: -1.5, marginBottom: 20, color: P.text }}
+              style={{ fontSize: 'clamp(34px, 4.2vw, 48px)', fontWeight: 900, lineHeight: 1.12, letterSpacing: -1.2, marginBottom: 20, color: P.text, textWrap: 'balance' } as any}
             >
               {heroWords.map((item, i) => (
                 <motion.span
@@ -208,7 +211,9 @@ export default function LandingPage_OfertaDois() {
               transition={{ delay: 1.3, duration: 0.7, ease: EASE }}
               style={{ fontSize: 16, color: P.muted, lineHeight: 1.8, marginBottom: 36, maxWidth: 520 }}
             >
-              Suas clientes agendam sozinhas em segundos pelo link do seu estúdio. Um sistema fofo, prático e muito simples de usar no dia a dia.
+              Você atende por conta própria. Trabalha com cílios. Não tem equipe, não tem comissão pra calcular. Você tem clientes, horários e resultados incríveis.
+              <br />
+              O Lash Hub foi feito pra isso. Só pra isso. Agenda das suas clientes, ficha de cada uma, controle dos seus ganhos — sem nada que você não vai usar.
             </motion.p>
 
             {/* CTAs */}
@@ -257,7 +262,7 @@ export default function LandingPage_OfertaDois() {
           </div>
 
           {/* Right — floating mockup */}
-          <div className="flex-1 flex justify-center" style={{ position: 'relative', minHeight: 400 }}>
+          <div className="w-full lg:w-auto lg:flex-shrink-0 flex justify-center min-h-[400px] lg:min-h-[320px]" style={{ position: 'relative' }}>
 
             {/* Decorative circles — hidden on mobile */}
             <motion.div
@@ -278,7 +283,8 @@ export default function LandingPage_OfertaDois() {
               initial={{ opacity: 0, y: 40, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ delay: 1.2, duration: 0.8, ease: EASE }}
-              style={{ width: '100%', maxWidth: 380, position: 'relative', zIndex: 2 }}
+              className="max-w-[380px] lg:max-w-[300px]"
+              style={{ width: '100%', position: 'relative', zIndex: 2 }}
             >
               <motion.div
                 animate={{ y: [0, -16, 0], rotate: [-1, 1, -1] }}

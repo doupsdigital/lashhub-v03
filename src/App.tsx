@@ -31,7 +31,6 @@ import LandingPage_v5 from './pages/LandingPage_v5';
 import LandingPage_v6 from './pages/LandingPage_v6';
 import LandingPage_v7 from './pages/LandingPage_v7';
 import LandingPage_v8 from './pages/LandingPage_v8';
-import LandingPage_v9 from './pages/LandingPage_v9';
 import LandingPage_OfertaUm from './pages/LandingPage_OfertaUm';
 import LandingPage_OfertaDois from './pages/LandingPage_OfertaDois';
 
@@ -96,7 +95,6 @@ export default function App() {
             <Route path="/v6" element={<LandingPage_v6 />} />
             <Route path="/v7" element={<LandingPage_v7 />} />
             <Route path="/v8" element={<LandingPage_v8 />} />
-            <Route path="/v9" element={<LandingPage_v9 />} />
             <Route path="/oferta1" element={<LandingPage_OfertaUm />} />
             <Route path="/oferta2" element={<LandingPage_OfertaDois />} />
             <Route path="/" element={<HomeRoute />} />
