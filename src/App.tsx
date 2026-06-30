@@ -29,8 +29,6 @@ import RecuperarSenha from './pages/profissional/RecuperarSenha';
 import RedefinirSenha from './pages/profissional/RedefinirSenha';
 import LandingPage_v5 from './pages/LandingPage_v5';
 import LandingPage_v6 from './pages/LandingPage_v6';
-import LandingPage_v7 from './pages/LandingPage_v7';
-import LandingPage_v8 from './pages/LandingPage_v8';
 import LandingPage_OfertaUm from './pages/LandingPage_OfertaUm';
 import LandingPage_OfertaUm_Dark from './pages/LandingPage_OfertaUm_Dark';
 import LandingPage_OfertaDois from './pages/LandingPage_OfertaDois';
@@ -95,8 +93,6 @@ export default function App() {
             {/* Públicas */}
             <Route path="/v5" element={<LandingPage_v5 />} />
             <Route path="/v6" element={<LandingPage_v6 />} />
-            <Route path="/v7" element={<LandingPage_v7 />} />
-            <Route path="/v8" element={<LandingPage_v8 />} />
             <Route path="/oferta1" element={<LandingPage_OfertaUm />} />
             <Route path="/oferta1-dark" element={<LandingPage_OfertaUm_Dark />} />
             <Route path="/oferta2" element={<LandingPage_OfertaDois />} />

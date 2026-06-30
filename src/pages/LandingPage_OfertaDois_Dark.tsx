@@ -213,9 +213,7 @@ export default function LandingPage_OfertaDois_Dark() {
               transition={{ delay: 1.3, duration: 0.7, ease: EASE }}
               style={{ fontSize: 16, color: P.muted, lineHeight: 1.8, marginBottom: 36, maxWidth: 520 }}
             >
-              Você atende por conta própria. Trabalha com cílios. Não tem equipe, não tem comissão pra calcular. Você tem clientes, horários e resultados incríveis.
-              <br />
-              O Lash Hub foi feito pra isso. Só pra isso. Agenda das suas clientes, ficha de cada uma, controle dos seus ganhos — sem nada que você não vai usar.
+              O Lash Hub foi pensado para a Lash Designer que atende por conta própria. Agenda automática, ficha de cada cliente e controle dos seus ganhos — tudo num lugar só, sem nada que você não vai usar.
             </motion.p>
 
             {/* CTAs */}
