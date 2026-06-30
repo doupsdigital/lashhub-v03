@@ -27,10 +27,6 @@ import PortalLogin from './pages/portal-clientes/PortalLogin';
 import { PortalProvider } from './contexts/PortalContext';
 import RecuperarSenha from './pages/profissional/RecuperarSenha';
 import RedefinirSenha from './pages/profissional/RedefinirSenha';
-import LandingPage_ModernElegant from './pages/LandingPage_ModernElegant';
-import LandingPage_DarkChic from './pages/LandingPage_DarkChic';
-import LandingPage_PlayfulBoutique from './pages/LandingPage_PlayfulBoutique';
-import LandingPage_BoldEditorial from './pages/LandingPage_BoldEditorial';
 import LandingPage_v5 from './pages/LandingPage_v5';
 import LandingPage_v6 from './pages/LandingPage_v6';
 import LandingPage_v7 from './pages/LandingPage_v7';
@@ -96,10 +92,6 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             {/* Públicas */}
-            <Route path="/v1" element={<LandingPage_ModernElegant />} />
-            <Route path="/v2" element={<LandingPage_DarkChic />} />
-            <Route path="/v3" element={<LandingPage_PlayfulBoutique />} />
-            <Route path="/v4" element={<LandingPage_BoldEditorial />} />
             <Route path="/v5" element={<LandingPage_v5 />} />
             <Route path="/v6" element={<LandingPage_v6 />} />
             <Route path="/v7" element={<LandingPage_v7 />} />

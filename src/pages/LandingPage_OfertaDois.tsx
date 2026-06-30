@@ -67,15 +67,6 @@ const heroWords = [
   { w: 'sua', a: false }, { w: 'marca', a: false },
 ];
 
-const features = [
-  { icon: <Calendar size={20} />, title: 'Agenda aberta 24h', desc: 'Suas clientes agendam sozinhas pelo link do seu estúdio. De madrugada. No feriado. Quando quiserem.' },
-  { icon: <Bell size={20} />, title: 'Aviso na hora', desc: 'Receba notificação no celular assim que uma cliente agendar. Você não precisa checar nada.' },
-  { icon: <BookOpen size={20} />, title: 'Ficha de cada cliente', desc: 'Curvatura, espessura, mapping. Histórico de todos os atendimentos. Consultável em segundos.' },
-  { icon: <TrendingUp size={20} />, title: 'Seus ganhos do mês', desc: 'Acompanhe seu faturamento por dia, semana e mês. Sem planilha. Sem complicação.' },
-  { icon: <Clock size={20} />, title: 'Horários bloqueados', desc: 'Folga, almoço, compromisso. Bloqueia o horário e ninguém consegue agendar nesse período.' },
-  { icon: <Sparkles size={20} />, title: 'App para as suas clientes', desc: 'Elas salvam o link do seu estúdio no celular como ícone. Parece um app — porque é, mas sem baixar de loja.' },
-];
-
 const steps = [
   { n: '01', title: 'Você compartilha seu link', desc: 'Cole na bio do Instagram, mande no WhatsApp. É o endereço digital do seu estúdio.' },
   { n: '02', title: 'Sua cliente salva como app', desc: 'Ela abre o link e salva na tela inicial do celular com um toque. Fica o ícone do seu estúdio ali.' },
@@ -486,7 +477,7 @@ export default function LandingPage_OfertaDois() {
         </div>
       </section>
 
-      {/* ── FEATURES ── */}
+      {/* ── FEATURES (bento grid) ── */}
       <section style={{ position: 'relative', zIndex: 1, padding: 'clamp(44px, 8vw, 80px) 20px', background: P.accent }}>
         <div style={{ maxWidth: 1040, margin: '0 auto' }}>
           <motion.div
@@ -494,33 +485,155 @@ export default function LandingPage_OfertaDois() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
             variants={stagger(0.08)}
-            style={{ textAlign: 'center', marginBottom: 56 }}
+            style={{ textAlign: 'center', marginBottom: 40 }}
           >
             <motion.h2 variants={fadeUp} style={{ fontSize: 'clamp(26px, 4vw, 48px)', fontWeight: 900, lineHeight: 1.1, letterSpacing: -0.5, color: '#fff' }}>
               Tudo que você precisa.{' '}
               <span style={{ color: 'rgba(255,255,255,0.75)' }}>Exatamente do jeito que você precisa.</span>
             </motion.h2>
           </motion.div>
+
+          {/* Row 1 */}
           <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+            className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.05 }}
-            variants={stagger(0.09)}
+            variants={stagger(0.1)}
           >
-            {features.map((f, i) => (
-              <motion.div
-                key={i}
-                variants={fadeUp}
-                whileHover={{ y: -8, boxShadow: '0 24px 60px rgba(200,75,114,0.14)', borderColor: 'rgba(200,75,114,0.35)' }}
-                transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-                style={{ background: P.card, border: `1px solid ${P.border}`, borderRadius: 16, padding: 24, boxShadow: '0 2px 12px rgba(0,0,0,0.04)' }}
-              >
-                <div style={{ width: 44, height: 44, borderRadius: 12, background: P.accentLight, color: P.accent, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16 }}>{f.icon}</div>
-                <h3 style={{ fontSize: 15, fontWeight: 700, marginBottom: 8, color: P.text }}>{f.title}</h3>
-                <p style={{ fontSize: 13, color: P.muted, lineHeight: 1.7 }}>{f.desc}</p>
-              </motion.div>
-            ))}
+            {/* Big hero card */}
+            <motion.div
+              className="md:col-span-2"
+              variants={fadeUp}
+              whileHover={{ y: -6, boxShadow: '0 24px 60px rgba(0,0,0,0.16)' }}
+              transition={{ type: 'spring', stiffness: 220, damping: 20 }}
+              style={{ background: P.card, border: `1px solid ${P.border}`, borderRadius: 20, padding: 36, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: 240, boxShadow: '0 2px 12px rgba(0,0,0,0.04)' }}
+            >
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
+                  <div style={{ width: 44, height: 44, borderRadius: 12, background: P.accentLight, color: P.accent, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Calendar size={22} /></div>
+                  <span style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 1, color: P.accent }}>Agenda online 24h</span>
+                </div>
+                <h3 style={{ fontSize: 'clamp(20px, 3vw, 32px)', fontWeight: 900, lineHeight: 1.2, marginBottom: 12, color: P.text }}>
+                  Suas clientes agendam sozinhas.<br />A qualquer hora.
+                </h3>
+                <p style={{ fontSize: 14, color: P.muted, lineHeight: 1.7, maxWidth: 420 }}>
+                  Elas acessam o link do seu estúdio, escolhem o serviço e o horário. Você recebe o aviso no celular na hora — sem precisar trocar nenhuma mensagem.
+                </p>
+              </div>
+              <div style={{ marginTop: 24, display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+                {['Sem WhatsApp pra agendar', 'Aviso instantâneo no celular', 'Disponível de madrugada'].map(t => (
+                  <span key={t} style={{ fontSize: 11, color: P.accent, background: P.accentLight, border: `1px solid rgba(200,75,114,0.2)`, borderRadius: 999, padding: '4px 12px', fontWeight: 600 }}>{t}</span>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Small card — aviso */}
+            <motion.div
+              variants={fadeUp}
+              whileHover={{ y: -6, boxShadow: '0 20px 50px rgba(0,0,0,0.12)' }}
+              transition={{ type: 'spring', stiffness: 260, damping: 22 }}
+              style={{ background: P.card, border: `1px solid ${P.border}`, borderRadius: 20, padding: 28, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxShadow: '0 2px 12px rgba(0,0,0,0.04)' }}
+            >
+              <div>
+                <div style={{ width: 44, height: 44, borderRadius: 12, background: P.accentLight, color: P.accent, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16 }}><Bell size={20} /></div>
+                <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 8, color: P.text }}>Aviso na hora</h3>
+                <p style={{ fontSize: 13, color: P.muted, lineHeight: 1.6 }}>Notificação no celular assim que alguém agendar. Zero espera.</p>
+              </div>
+              <div style={{ marginTop: 20, fontSize: 32 }}>📲</div>
+            </motion.div>
+          </motion.div>
+
+          {/* Row 2 */}
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mb-3"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.05 }}
+            variants={stagger(0.1)}
+          >
+            {/* App clientes */}
+            <motion.div
+              variants={fadeUp}
+              whileHover={{ y: -6, boxShadow: '0 20px 50px rgba(0,0,0,0.1)' }}
+              transition={{ type: 'spring', stiffness: 260, damping: 22 }}
+              style={{ background: P.card, border: `1px solid ${P.border}`, borderRadius: 20, padding: 28, boxShadow: '0 2px 12px rgba(0,0,0,0.04)' }}
+            >
+              <div style={{ width: 44, height: 44, borderRadius: 12, background: P.accentLight, color: P.accent, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16 }}><Sparkles size={20} /></div>
+              <h3 style={{ fontSize: 16, fontWeight: 800, marginBottom: 8, color: P.text }}>App para as clientes</h3>
+              <p style={{ fontSize: 13, color: P.muted, lineHeight: 1.6 }}>Elas salvam o link do seu estúdio no celular como ícone. Parece app — porque é. Mas sem baixar de loja.</p>
+            </motion.div>
+
+            {/* Ficha da cliente — card destaque */}
+            <motion.div
+              variants={fadeUp}
+              whileHover={{ y: -8, boxShadow: '0 28px 64px rgba(0,0,0,0.18)' }}
+              transition={{ type: 'spring', stiffness: 220, damping: 20 }}
+              style={{ background: P.card, border: `2px solid ${P.accent}`, borderRadius: 20, padding: 28, position: 'relative', overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}
+            >
+              <div style={{ position: 'absolute', top: -20, right: -20, width: 100, height: 100, borderRadius: '50%', background: P.accentLight, filter: 'blur(20px)' }} />
+              <div style={{ width: 44, height: 44, borderRadius: 12, background: P.accentLight, color: P.accent, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16 }}><BookOpen size={20} /></div>
+              <h3 style={{ fontSize: 16, fontWeight: 800, marginBottom: 8, color: P.text }}>Ficha de cada cliente</h3>
+              <p style={{ fontSize: 13, color: P.muted, lineHeight: 1.6, marginBottom: 16 }}>Curvatura, espessura, mapping, histórico. Tudo salvo e acessível na palma da sua mão.</p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                {[['Curvatura', 'D'], ['Espessura', '0.07'], ['Último atendimento', '28 dias']].map(([k, v]) => (
+                  <div key={k} style={{ background: P.bg, borderRadius: 8, padding: '6px 10px', fontSize: 10, color: P.muted, display: 'flex', justifyContent: 'space-between' }}>
+                    <span>{k}</span>
+                    <span style={{ color: P.accent, fontWeight: 700 }}>{v}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Bloqueio de horários */}
+            <motion.div
+              variants={fadeUp}
+              whileHover={{ y: -6, boxShadow: '0 20px 50px rgba(0,0,0,0.1)' }}
+              transition={{ type: 'spring', stiffness: 260, damping: 22 }}
+              style={{ background: P.card, border: `1px solid ${P.border}`, borderRadius: 20, padding: 28, boxShadow: '0 2px 12px rgba(0,0,0,0.04)' }}
+            >
+              <div style={{ width: 44, height: 44, borderRadius: 12, background: P.accentLight, color: P.accent, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16 }}><Clock size={20} /></div>
+              <h3 style={{ fontSize: 16, fontWeight: 800, marginBottom: 8, color: P.text }}>Bloqueio de horários</h3>
+              <p style={{ fontSize: 13, color: P.muted, lineHeight: 1.6 }}>Folga, almoço, compromisso pessoal. Bloqueia e ninguém consegue agendar nesse período.</p>
+            </motion.div>
+          </motion.div>
+
+          {/* Row 3 */}
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 gap-3"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.05 }}
+            variants={stagger(0.1)}
+          >
+            {/* Stat card — R$0 taxa */}
+            <motion.div
+              variants={scaleIn}
+              whileHover={{ scale: 1.02, boxShadow: '0 24px 60px rgba(0,0,0,0.22)' }}
+              transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+              style={{ background: P.accentDark, borderRadius: 20, padding: 28, boxShadow: '0 4px 20px rgba(0,0,0,0.12)' }}
+            >
+              <div style={{ fontSize: 48, fontWeight: 900, color: '#fff', lineHeight: 1, marginBottom: 8 }}>R$0</div>
+              <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.88)', fontWeight: 600, marginBottom: 4 }}>de taxa por atendimento</div>
+              <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.65)' }}>Mensalidade fixa. O que você ganha é 100% seu.</div>
+            </motion.div>
+
+            {/* Ganhos card */}
+            <motion.div
+              variants={fadeUp}
+              whileHover={{ y: -6, boxShadow: '0 20px 50px rgba(0,0,0,0.1)' }}
+              transition={{ type: 'spring', stiffness: 260, damping: 22 }}
+              style={{ background: P.card, border: `1px solid ${P.border}`, borderRadius: 20, padding: 28, boxShadow: '0 2px 12px rgba(0,0,0,0.04)' }}
+            >
+              <div style={{ width: 44, height: 44, borderRadius: 12, background: P.accentLight, color: P.accent, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16 }}><TrendingUp size={20} /></div>
+              <h3 style={{ fontSize: 16, fontWeight: 800, marginBottom: 8, color: P.text }}>Controle dos seus ganhos</h3>
+              <p style={{ fontSize: 13, color: P.muted, lineHeight: 1.6, marginBottom: 16 }}>Veja quanto faturou hoje, essa semana, esse mês. Sem planilha.</p>
+              <div style={{ background: P.bg, borderRadius: 10, padding: 12 }}>
+                <div style={{ fontSize: 9, color: P.muted, marginBottom: 6, textTransform: 'uppercase', letterSpacing: 0.5 }}>Este mês</div>
+                <div style={{ fontSize: 26, fontWeight: 900, color: P.accent }}>R$ 4.320</div>
+                <div style={{ fontSize: 9, color: '#10b981', marginTop: 4 }}>↑ 18% vs. mês anterior</div>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
