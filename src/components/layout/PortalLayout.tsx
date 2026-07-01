@@ -1,6 +1,6 @@
 import { Link, NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom';
-import { BookOpen, Calendar, ClipboardList, User, LogOut, MessageCircle } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { BookOpen, Calendar, ClipboardList, User, LogOut, MessageCircle, LayoutDashboard } from 'lucide-react';
+import { useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { usePortal } from '../../contexts/PortalContext';
 import PortalFloatingHelpButton from '../common/PortalFloatingHelpButton';
@@ -16,16 +16,6 @@ export default function PortalLayout() {
   const isAgendar = location.pathname.endsWith('/agendar');
 
   const [installBannerVisible, setInstallBannerVisible] = useState(false);
-
-  useEffect(() => {
-    if (isProfissional) {
-      // Profissional visitando o próprio portal: redireciona ao painel sem
-      // fazer signOut — chamar signOut aqui destruía a sessão e causava race
-      // condition onde o SIGNED_OUT chegava após um SIGNED_IN subsequente,
-      // derrubando o login da profissional na tela seguinte.
-      navigate('/meu-estudio', { replace: true });
-    }
-  }, [isProfissional]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSignOut = async () => {
     await signOut();
@@ -91,7 +81,16 @@ export default function PortalLayout() {
         </div>
 
         <div className="flex items-center gap-3">
-          {!isAuthPage && !isBasico && (user ? (
+          {/* Profissional visualizando o próprio portal: mostra botão de retorno ao painel */}
+          {isProfissional ? (
+            <button
+              onClick={() => navigate('/meu-estudio')}
+              className="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-white bg-rose-600 hover:bg-rose-800 rounded-xl transition-all shadow-md cursor-pointer"
+            >
+              <LayoutDashboard className="w-4 h-4" />
+              <span>Voltar ao Painel</span>
+            </button>
+          ) : !isAuthPage && !isBasico && (user ? (
             <>
               {profile?.avatar_url ? (
                 <img
