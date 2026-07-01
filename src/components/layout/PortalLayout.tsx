@@ -86,13 +86,14 @@ export default function PortalLayout() {
             <>
               <Link
                 to={`/portal/${slug}/login`}
-                className="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-rose-600 border border-rose-300 hover:bg-rose-50 rounded-xl transition-all cursor-pointer"
+                className="flex items-center gap-1 px-2.5 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold text-rose-600 border border-rose-300 hover:bg-rose-50 rounded-xl transition-all cursor-pointer whitespace-nowrap"
               >
-                Entrar como cliente
+                <span className="hidden sm:inline">Entrar como</span>
+                <span>Cliente</span>
               </Link>
               <button
                 onClick={() => navigate('/meu-estudio')}
-                className="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-white bg-rose-600 hover:bg-rose-800 rounded-xl transition-all shadow-md cursor-pointer"
+                className="flex items-center gap-1.5 px-2.5 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold text-white bg-rose-600 hover:bg-rose-800 rounded-xl transition-all shadow-md cursor-pointer whitespace-nowrap"
               >
                 <LayoutDashboard className="w-4 h-4" />
                 <span>Painel</span>
