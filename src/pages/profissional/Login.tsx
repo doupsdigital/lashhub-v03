@@ -16,15 +16,15 @@ export default function Login() {
     if (!authLoading && !user) setSubmitting(false);
   }, [authLoading, user]);
 
-  // Redireciona usuário já autenticado
+  // Redireciona usuário já autenticado.
+  // Nota: não redireciona quando isProfissional=false e slug=null — isso é um
+  // estado TRANSITÓRIO entre o setUser() e o carregamento do perfil. Redirecionar
+  // para /login nesse momento cria um loop infinito após sign-out + novo login.
   if (!authLoading && user) {
     if (isProfissional) {
       return <Navigate to="/meu-estudio" replace />;
     } else if (estabelecimentoSlug) {
       return <Navigate to={`/portal/${estabelecimentoSlug}/catalogo`} replace />;
-    } else {
-      console.warn('[Login] Logged in but isProfissional is false and no slug found - redirecting back to /login');
-      return <Navigate to="/login" replace />;
     }
   }
 

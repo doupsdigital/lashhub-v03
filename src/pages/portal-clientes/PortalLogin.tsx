@@ -6,7 +6,7 @@ import { Mail, Lock, Eye, EyeOff, AlertCircle } from 'lucide-react';
 
 export default function PortalLogin() {
   const navigate = useNavigate();
-  const { user, isCliente, loading: authLoading, signIn, signOut, estabelecimentoId } = useAuth();
+  const { user, profile, isCliente, isProfissional, loading: authLoading, signIn, signOut, estabelecimentoId } = useAuth();
   const { slug, loading: portalLoading, establishmentId } = usePortal();
   
   const [email, setEmail] = useState('');
@@ -14,24 +14,32 @@ export default function PortalLogin() {
   const [showPassword, setShowPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  // Ref para detectar se a autenticação veio do formulário (evita race condition com stale closure)
+  // Ref para detectar se a autenticação veio do formulário.
   const justSubmittedRef = useRef(false);
+  // ID do usuário que estava logado NO MOMENTO em que o form foi submetido.
+  // Usado para distinguir "novo usuário logou via form" de "session refresh do
+  // mesmo usuário disparou onAuthStateChange enquanto a requisição estava em voo".
+  const submittedFromUserIdRef = useRef<string | null>(null);
 
   // Redireciona usuário já autenticado — ou bloqueia se for cliente de outro estúdio
   useEffect(() => {
     if (authLoading || portalLoading) return;
     if (!user) return;
+    // Aguarda o perfil CORRETO estar carregado.
+    // profile.id !== user.id significa que o profile ainda é de uma sessão
+    // anterior (stale) — ocorre quando SIGNED_IN chega antes do SIGNED_OUT
+    // limpar o profile da sessão antiga. Nesse caso esperamos.
+    if (!profile || profile.id !== user.id) return;
 
     if (!isCliente) {
-      if (justSubmittedRef.current) {
-        // Profissional tentou logar com as próprias credenciais no form do portal → rejeitar
+      if (justSubmittedRef.current && isProfissional) {
+        // A profissional usou as próprias credenciais no form do portal → rejeitar.
         justSubmittedRef.current = false;
+        submittedFromUserIdRef.current = null;
         signOut();
         setErrorMsg('Este portal é exclusivo para clientes. Para acessar seu painel, use o link de login da profissional.');
         setSubmitting(false);
       }
-      // Se apenas navegou até aqui (sem submeter o form), deixa ver o form
-      // para que possa entrar com credenciais de uma conta de cliente.
       return;
     }
 
@@ -44,11 +52,14 @@ export default function PortalLogin() {
     }
 
     navigate(`/portal/${slug}/catalogo`, { replace: true });
-  }, [authLoading, portalLoading, user, isCliente, navigate, slug, estabelecimentoId, establishmentId]);
+  }, [authLoading, portalLoading, user, profile, isCliente, isProfissional, navigate, slug, estabelecimentoId, establishmentId]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg(null);
+    // Guarda quem estava logado antes de submeter — permite distinguir
+    // "novo login via form" de "event de refresh do mesmo usuário".
+    submittedFromUserIdRef.current = user?.id ?? null;
     justSubmittedRef.current = true;
     setSubmitting(true);
 
@@ -56,6 +67,7 @@ export default function PortalLogin() {
       await signIn(email.trim().toLowerCase(), password);
     } catch (err: unknown) {
       justSubmittedRef.current = false;
+      submittedFromUserIdRef.current = null;
       const message = err instanceof Error ? err.message : 'Erro ao fazer login.';
       setErrorMsg(
         message === 'Invalid login credentials'
