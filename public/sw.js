@@ -13,8 +13,16 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
+  // Requests de navegação (carregamento de página HTML) são entregues ao browser
+  // diretamente — sem interceptar. Caso contrário, se fetch() falhar e não
+  // houver cache, event.respondWith(undefined) lança TypeError e a navegação
+  // fica presa num "network error", causando o loop login → falha → login.
+  if (event.request.mode === 'navigate') return;
   event.respondWith(
-    fetch(event.request).catch(() => caches.match(event.request))
+    fetch(event.request).catch(async () => {
+      const cached = await caches.match(event.request);
+      return cached ?? Response.error();
+    })
   );
 });
 
