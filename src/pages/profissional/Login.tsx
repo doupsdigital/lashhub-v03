@@ -16,16 +16,19 @@ export default function Login() {
     if (!authLoading && !user) setSubmitting(false);
   }, [authLoading, user]);
 
-  // Redireciona usuário já autenticado
-  if (!authLoading && user) {
-    if (isProfissional) {
-      return <Navigate to="/meu-estudio" replace />;
-    } else if (estabelecimentoSlug) {
-      return <Navigate to={`/portal/${estabelecimentoSlug}/catalogo`} replace />;
-    } else {
-      console.warn('[Login] Logged in but isProfissional is false and no slug found - redirecting back to /login');
-      return <Navigate to="/login" replace />;
+  // Usuário autenticado como não-profissional chegou na tela de login profissional
+  // (ex: estava logado como cliente no portal e veio para cá). Faz logout para
+  // limpar a sessão e exibir o formulário — sem isso criaria loop ou redirecionaria
+  // para o portal quando o usuário quer logar como profissional.
+  useEffect(() => {
+    if (!authLoading && user && !isProfissional) {
+      signOut();
     }
+  }, [authLoading, user, isProfissional, signOut]);
+
+  // Redireciona profissional já autenticado
+  if (!authLoading && user && isProfissional) {
+    return <Navigate to="/meu-estudio" replace />;
   }
 
   const handleLogin = async (e: React.FormEvent) => {
