@@ -4,7 +4,7 @@ import { useAuth } from '../../contexts/AuthContext';
 import { Mail, Lock, Eye, EyeOff, AlertCircle } from 'lucide-react';
 
 export default function Login() {
-  const { user, isProfissional, estabelecimentoSlug, loading: authLoading, signIn } = useAuth();
+  const { user, isProfissional, loading: authLoading, signIn, signOut } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
