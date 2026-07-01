@@ -9,7 +9,6 @@ import InstallBanner from '../common/InstallBanner';
 export default function PortalLayout() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { slug: slugParam } = useParams<{ slug: string }>();
   const { user, profile, isProfissional, signOut } = useAuth();
   const { nomeNegocio, logoUrl, slug, loading, nomeProfissional, plano, telefoneProfissional, descricao, instagram, endereco } = usePortal();
   const isBasico = plano === 'basico';
