@@ -364,9 +364,28 @@ export default function CadastroProfissional() {
             <h2 className="font-title font-bold text-2xl text-text-primary mb-1">
               Bem-vinda ao Lash Hub!
             </h2>
-            <p className="text-sm text-text-secondary mb-6 leading-relaxed">
+            <p className="text-sm text-text-secondary mb-5 leading-relaxed">
               Seu espaço <span className="font-semibold text-rose-600">{form.nome}</span> foi criado com sucesso. Agora é só configurar e começar a receber agendamentos.
             </p>
+
+            {/* Vídeo de boas-vindas */}
+            <div className="w-full mb-5">
+              <p className="text-[11px] font-semibold text-text-secondary uppercase tracking-wider mb-2 text-center">
+                ▶ Veja como funciona
+              </p>
+              <div className="flex justify-center">
+                <div className="relative rounded-xl overflow-hidden bg-black w-full" style={{ maxWidth: '240px', aspectRatio: '9 / 16' }}>
+                  <iframe
+                    src="https://player.vimeo.com/video/1206207885?h=aca73d1e2d&badge=0&autopause=0&player_id=0&app_id=58479"
+                    className="absolute inset-0 w-full h-full"
+                    frameBorder={0}
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+                    allowFullScreen
+                    title="Tutorial de Boas-vindas - Lash Hub"
+                  />
+                </div>
+              </div>
+            </div>
 
             <div className="w-full space-y-3 mb-4 text-left">
               <div className="flex items-start gap-3 bg-rose-50/50 border border-rose-100 rounded-xl p-3.5">
