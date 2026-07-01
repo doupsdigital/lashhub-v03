@@ -20,9 +20,11 @@ export default function PortalLayout() {
 
   useEffect(() => {
     if (isProfissional) {
-      signOut().then(() => {
-        navigate(`/portal/${slugParam}/catalogo`, { replace: true });
-      });
+      // Profissional visitando o próprio portal: redireciona ao painel sem
+      // fazer signOut — chamar signOut aqui destruía a sessão e causava race
+      // condition onde o SIGNED_OUT chegava após um SIGNED_IN subsequente,
+      // derrubando o login da profissional na tela seguinte.
+      navigate('/meu-estudio', { replace: true });
     }
   }, [isProfissional]); // eslint-disable-line react-hooks/exhaustive-deps
 
